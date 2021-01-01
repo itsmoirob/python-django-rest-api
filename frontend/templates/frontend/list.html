@@ -1,9 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/jpg" href="{% static 'favicon.ico' %}"/>
   <title>TO DO</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -90,6 +93,20 @@
       <div id="list-wrapper"> </div>
     </div>
   </div>
+
+  <script>
+    async function buildList() {
+      const wrapper = document.querySelector('#list-wrapper');
+      const url = 'http://127.0.0.1:8000/api/task-list/'
+
+      const resp = await fetch(url);
+      const data = await resp.json();
+
+      console.info({ data });
+    }
+
+    buildList();
+  </script>
 </body>
 
 </html>
