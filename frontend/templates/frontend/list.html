@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/jpg" href="{% static 'favicon.ico' %}"/>
+  <link rel="shortcut icon" type="image/jpg" href="{% static 'favicon.ico' %}" />
   <title>TO DO</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -102,7 +102,37 @@
       const resp = await fetch(url);
       const data = await resp.json();
 
-      console.info({ data });
+      for (let i in data) {
+        const parentDivEl = document.createElement('div');
+        parentDivEl.classList.add('task-wrapper', 'flex-wrapper');
+        parentDivEl.setAttribute('data-row', i);
+
+        const titleDivEl = document.createElement('div');
+        titleDivEl.style = ['flex:7'];
+        const titleSpanEl = document.createElement('span');
+        titleSpanEl.classList.add('title');
+        titleSpanEl.innerText = `${data[i].title}`;
+        titleDivEl.appendChild(titleSpanEl);
+        parentDivEl.appendChild(titleDivEl);
+
+        const editBtnDivEl = document.createElement('div');
+        editBtnDivEl.style = ['flex:1'];
+        const editBtnEl = document.createElement('button');
+        editBtnEl.classList.add('btn', 'btn-sm', 'btn-outline-info', 'edit');
+        editBtnEl.innerText = 'Edit ';
+        editBtnDivEl.appendChild(editBtnEl);
+        parentDivEl.appendChild(editBtnDivEl);
+
+        const delBtnDivEl = document.createElement('div');
+        delBtnDivEl.style = ['flex:1'];
+        const delBtnEl = document.createElement('button');
+        delBtnEl.classList.add('btn', 'btn-sm', 'btn-outline-dark', 'delete');
+        delBtnEl.innerText = '-'
+        delBtnDivEl.appendChild(delBtnEl);
+        parentDivEl.appendChild(delBtnDivEl);
+
+        wrapper.appendChild(parentDivEl);
+      }
     }
 
     buildList();
